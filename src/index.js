@@ -18,6 +18,10 @@ export function forge(id) {
   return generators[id]();
 }
 
+export function ids() {
+  return Object.keys(generators);
+}
+
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
