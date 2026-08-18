@@ -8,6 +8,16 @@ const generators = {
       answer: a + b,
     };
   },
+
+  "addition-single-digit-carry": () => {
+    const a = randomInteger(1, 9);
+    const b = randomInteger(10 - a, 9);
+
+    return {
+      data: { a, b },
+      answer: a + b,
+    };
+  },
 };
 
 export function forge(id) {
