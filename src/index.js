@@ -21,6 +21,11 @@ const generators = {
 
   "count-10-random-dots": () => generateRandomDots(1, 10),
   "count-20-random-dots": () => generateRandomDots(11, 20),
+
+  "count-20-50-dots-in-columns": () => {
+    const columns = randomInteger(4, 6);
+    return generateDotsInColumns(20, 40, columns);
+  },
 };
 
 export function forge(id) {
@@ -55,6 +60,27 @@ function generateRandomDots(minCount, maxCount) {
     ) {
       dots.push(dot);
     }
+  }
+
+  return {
+    data: { dots },
+    answer: count,
+  };
+}
+
+function generateDotsInColumns(min, max, columns) {
+  const count = randomInteger(min, max);
+  const dots = [];
+  const rows = Math.ceil(count / columns);
+
+  for (let i = 0; i < count; i++) {
+    const column = i % columns;
+    const row = Math.floor(i / columns);
+
+    dots.push({
+      x: (column + 0.5) / columns,
+      y: (row + 0.5) / rows,
+    });
   }
 
   return {
