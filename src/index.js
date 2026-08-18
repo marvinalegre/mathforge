@@ -18,6 +18,9 @@ const generators = {
       answer: a + b,
     };
   },
+
+  "count-10-random-dots": () => generateRandomDots(1, 10),
+  "count-20-random-dots": () => generateRandomDots(11, 20),
 };
 
 export function forge(id) {
@@ -34,4 +37,28 @@ export function ids() {
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateRandomDots(minCount, maxCount) {
+  const count = randomInteger(minCount, maxCount);
+  const minDistance = 0.1;
+  const dots = [];
+
+  while (dots.length < count) {
+    const dot = {
+      x: Math.random(),
+      y: Math.random(),
+    };
+
+    if (
+      dots.every((d) => Math.hypot(d.x - dot.x, d.y - dot.y) >= minDistance)
+    ) {
+      dots.push(dot);
+    }
+  }
+
+  return {
+    data: { dots },
+    answer: count,
+  };
 }
