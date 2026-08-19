@@ -1,12 +1,5 @@
 {
   "name": "mathforge",
   "main": "src/index.js",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.22.0",
-      "onFail": "download"
-    }
-  },
   "type": "module"
 }
