@@ -26,6 +26,16 @@ const generators = {
     const columns = randomInteger(4, 6);
     return generateDotsInColumns(20, 40, columns);
   },
+
+  "ordinal-before-after-10": () => {
+    const n = randomInteger(2, 9);
+    const direction = randomInteger(0, 1);
+
+    return {
+      data: { n, direction },
+      answer: ordinal(direction === 0 ? n - 1 : n + 1),
+    };
+  },
 };
 
 export function forge(id) {
@@ -42,6 +52,15 @@ export function ids() {
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function ordinal(n) {
+  const suffix =
+    n % 100 >= 11 && n % 100 <= 13
+      ? "th"
+      : ["th", "st", "nd", "rd"][n % 10] || "th";
+
+  return `${n}${suffix}`;
 }
 
 function generateRandomDots(minCount, maxCount) {
