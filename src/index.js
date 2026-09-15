@@ -38,7 +38,10 @@ const generators = {
   },
 
   "place-value-2-digit": () => {
-    const number = randomInteger(10, 99);
+    let number;
+    do {
+      number = randomInteger(10, 99);
+    } while (Math.floor(number / 10) === number % 10);
     const place = Math.random() > 0.5 ? "tens" : "ones";
     const digit = place === "tens" ? Math.floor(number / 10) : number % 10;
 
