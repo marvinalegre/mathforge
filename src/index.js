@@ -8,7 +8,6 @@ const generators = {
       answer: a + b,
     };
   },
-
   "addition-single-digit-carry": () => {
     const a = randomInteger(1, 9);
     const b = randomInteger(10 - a, 9);
@@ -18,7 +17,6 @@ const generators = {
       answer: a + b,
     };
   },
-
   "addition-single-double-digit-under-20": () => {
     const a = randomInteger(1, 9);
     const b = randomInteger(10, 19 - a);
@@ -28,7 +26,6 @@ const generators = {
       answer: a + b,
     };
   },
-
   "addition-double-digit-under-100": () => {
     const a = randomInteger(10, 89);
     const b = randomInteger(10, 99 - a);
@@ -36,6 +33,16 @@ const generators = {
     return {
       data: { a, b },
       answer: a + b,
+    };
+  },
+
+  "subtraction-single-digit-no-borrow": () => {
+    const a = randomInteger(1, 9);
+    const b = randomInteger(1, a);
+
+    return {
+      data: { a, b },
+      answer: a - b,
     };
   },
 
