@@ -36,6 +36,17 @@ const generators = {
       answer: ordinal(direction === 0 ? n - 1 : n + 1),
     };
   },
+
+  "place-value-2-digit": () => {
+    const number = randomInteger(10, 99);
+    const place = Math.random() > 0.5 ? "tens" : "ones";
+    const digit = place === "tens" ? Math.floor(number / 10) : number % 10;
+
+    return {
+      data: { number, digit },
+      answer: place,
+    };
+  },
 };
 
 export function forge(id) {
