@@ -95,6 +95,40 @@ const generators = {
       answer: place,
     };
   },
+
+  "count-coins-20": () => {
+    let ones, fives, tens, total;
+
+    do {
+      ones = randomInteger(0, 5);
+      fives = randomInteger(0, 3);
+      tens = randomInteger(0, 2);
+
+      total = ones + fives * 5 + tens * 10;
+    } while (total === 0 || total > 20);
+
+    return {
+      data: { ones, fives, tens },
+      answer: total,
+    };
+  },
+  "count-money-100": () => {
+    let ones, fives, tens, fifties, total;
+
+    do {
+      ones = randomInteger(0, 5);
+      fives = randomInteger(0, 3);
+      tens = randomInteger(0, 2);
+      fifties = randomInteger(0, 2);
+
+      total = ones + fives * 5 + tens * 10 + fifties * 50;
+    } while (total < 21 || total > 100);
+
+    return {
+      data: { ones, fives, tens, fifties },
+      answer: total,
+    };
+  },
 };
 
 export function forge(id) {
