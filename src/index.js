@@ -19,6 +19,26 @@ const generators = {
     };
   },
 
+  "addition-single-double-digit-under-20": () => {
+    const a = randomInteger(1, 9);
+    const b = randomInteger(10, 19 - a);
+
+    return {
+      data: { a, b },
+      answer: a + b,
+    };
+  },
+
+  "addition-double-digit-under-100": () => {
+    const a = randomInteger(10, 89);
+    const b = randomInteger(10, 99 - a);
+
+    return {
+      data: { a, b },
+      answer: a + b,
+    };
+  },
+
   "count-10-random-dots": () => generateRandomDots(1, 10),
   "count-20-random-dots": () => generateRandomDots(11, 20),
 
