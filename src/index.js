@@ -45,6 +45,24 @@ const generators = {
       answer: a - b,
     };
   },
+  "subtraction-double-single-digit-under-20": () => {
+    const a = randomInteger(11, 18);
+    const b = randomInteger((a % 10) + 1, 9);
+
+    return {
+      data: { a, b },
+      answer: a - b,
+    };
+  },
+  "subtraction-double-digit-under-100": () => {
+    const a = randomInteger(11, 99);
+    const b = randomInteger(10, a);
+
+    return {
+      data: { a, b },
+      answer: a - b,
+    };
+  },
 
   "count-10-random-dots": () => generateRandomDots(1, 10),
   "count-20-random-dots": () => generateRandomDots(11, 20),
