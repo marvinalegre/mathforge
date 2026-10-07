@@ -1,4 +1,183 @@
 const generators = {
+  "alphabet-fibonacci": () => {
+    const gaps = [1, 1, 2, 3, 5];
+    const maxStart = 25 - gaps.reduce((sum, gap) => sum + gap + 1, 0);
+    const start = randomInteger(0, maxStart);
+
+    const sequence = [start];
+
+    for (let i = 0; i < 4; i++) {
+      sequence.push(sequence.at(-1) + gaps[i] + 1);
+    }
+
+    const answer = sequence.at(-1) + gaps[4] + 1;
+
+    return {
+      data: {
+        sequence: [
+          ...sequence.map((n) => String.fromCharCode(97 + n)),
+          "_",
+        ].join(" "),
+      },
+      answer: String.fromCharCode(97 + answer),
+    };
+  },
+  "alphabet-symmetry": () => {
+    const step = randomInteger(1, 3);
+    const center = randomInteger(step * 4, 25 - step * 4);
+
+    const sequence = Array.from(
+      { length: 7 },
+      (_, i) => center - Math.abs(4 - i) * step,
+    );
+
+    return {
+      data: {
+        sequence: [
+          ...sequence.map((n) => String.fromCharCode(97 + n)),
+          "_",
+        ].join(" "),
+      },
+      answer: String.fromCharCode(97 + center - step * 3),
+    };
+  },
+  "alphabet-interleaved-constant-step": () => {
+    const step1 = randomInteger(1, 3);
+    const step2 = randomInteger(1, 3);
+
+    const start1 = randomInteger(0, 25 - step1 * 3);
+    const start2 = randomInteger(0, 25 - step2 * 2);
+
+    const sequence = [
+      start1,
+      start2,
+      start1 + step1,
+      start2 + step2,
+      start1 + step1 * 2,
+      start2 + step2 * 2,
+    ];
+
+    const answer = start1 + step1 * 3;
+
+    return {
+      data: {
+        sequence: [...sequence, "_"]
+          .map((n) => (n === "_" ? n : String.fromCharCode(97 + n)))
+          .join(" "),
+      },
+      answer: String.fromCharCode(97 + answer),
+    };
+  },
+  "alphabet-alternating-direction": () => {
+    const step = randomInteger(1, 3);
+    const start = randomInteger(step, 25 - step);
+
+    const sequence = [start];
+
+    for (let i = 0; i < 4; i++) {
+      sequence.push(sequence.at(-1) + (i % 2 === 0 ? step : -step));
+    }
+
+    return {
+      data: {
+        sequence: sequence
+          .map((n) => String.fromCharCode(97 + n))
+          .concat("_")
+          .join(" "),
+      },
+      answer: String.fromCharCode(97 + sequence.at(-1) + step),
+    };
+  },
+  "alphabet-alternating-step": () => {
+    const step1 = randomInteger(1, 3);
+    const step2 = randomInteger(1, 3);
+    const start = randomInteger(0, 25 - step1 - step2 - step1 - step2 - step1);
+
+    const sequence = [start];
+
+    for (let i = 0; i < 4; i++) {
+      sequence.push(sequence.at(-1) + (i % 2 === 0 ? step1 : step2));
+    }
+
+    return {
+      data: {
+        sequence: sequence
+          .map((n) => String.fromCharCode(97 + n))
+          .concat("_")
+          .join(" "),
+      },
+      answer: String.fromCharCode(97 + sequence.at(-1) + step1),
+    };
+  },
+  "alphabet-decreasing-step": () => {
+    const start = randomInteger(20, 25);
+
+    const sequence = Array.from({ length: 5 }, (_, i) =>
+      String.fromCharCode(97 + start - (i * (i + 1)) / 2),
+    );
+
+    return {
+      data: { sequence: [...sequence, "_"].join(" ") },
+      answer: String.fromCharCode(97 + start - 15),
+    };
+  },
+  "alphabet-increasing-step": () => {
+    const start = randomInteger(0, 5);
+
+    const sequence = Array.from({ length: 5 }, (_, i) =>
+      String.fromCharCode(97 + start + (i * (i + 1)) / 2),
+    );
+
+    return {
+      data: { sequence: [...sequence, "_"].join(" ") },
+      answer: String.fromCharCode(97 + start + 15),
+    };
+  },
+  "alphabet-repeating-cycle": () => {
+    const cycleLength = randomInteger(2, 3);
+    const start = randomInteger(0, 25);
+
+    const cycle = Array.from({ length: cycleLength }, (_, i) =>
+      String.fromCharCode(97 + start + i),
+    );
+
+    const sequence = Array.from(
+      { length: 5 },
+      (_, i) => cycle[i % cycleLength],
+    );
+
+    return {
+      data: { sequence: [...sequence, "_"].join(" ") },
+      answer: cycle[5 % cycleLength],
+    };
+  },
+  "alphabet-constant-reverse-step": () => {
+    const step = randomInteger(2, 4);
+    const start = randomInteger(step * 5, 25);
+
+    const sequence = Array.from({ length: 5 }, (_, i) =>
+      String.fromCharCode(97 + start - i * step),
+    );
+
+    return {
+      data: { sequence: [...sequence, "_"].join(" ") },
+      answer: String.fromCharCode(97 + start - 5 * step),
+    };
+  },
+  "alphabet-constant-step": () => {
+    const step = randomInteger(2, 4);
+    const start = randomInteger(0, 25 - step * 5);
+
+    const sequence = Array.from({ length: 5 }, (_, i) =>
+      String.fromCharCode(97 + start + i * step),
+    );
+
+    return {
+      data: { sequence: [...sequence, "_"].join(" ") },
+      answer: String.fromCharCode(97 + start + 5 * step),
+    };
+  },
+
   "addition-single-digit-no-carry": () => {
     const a = randomInteger(1, 8);
     const b = randomInteger(1, 9 - a);
