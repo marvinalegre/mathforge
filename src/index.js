@@ -35,6 +35,11 @@ const generators = {
       answer: a + b,
     };
   },
+  "addition-two-digit-three-digit": () => addition(2, 3),
+  "addition-two-digit-four-digit": () => addition(2, 4),
+  "addition-four-digit-four-digit": () => addition(4, 4),
+  "addition-four-digit-five-digit": () => addition(4, 5),
+  "addition-four-digit-six-digit": () => addition(4, 6),
 
   "subtraction-single-digit-no-borrow": () => {
     const a = randomInteger(1, 9);
@@ -200,3 +205,18 @@ function generateDotsInColumns(min, max, columns) {
     answer: count,
   };
 }
+const randomOrder = (a, b) => (Math.random() > 0.5 ? [a, b] : [b, a]);
+
+const addition = (digitsA, digitsB) => {
+  const min = (digits) => 10 ** (digits - 1);
+  const max = (digits) => 10 ** digits - 1;
+
+  const n1 = randomInteger(min(digitsA), max(digitsA));
+  const n2 = randomInteger(min(digitsB), max(digitsB));
+  const [a, b] = randomOrder(n1, n2);
+
+  return {
+    data: { a, b },
+    answer: a + b,
+  };
+};
