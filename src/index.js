@@ -68,6 +68,100 @@ const generators = {
       answer: a - b,
     };
   },
+  "subtraction-two-digit-three-digit": () => subtraction(2, 3),
+  "subtraction-two-digit-four-digit": () => subtraction(2, 4),
+  "subtraction-four-digit-four-digit": () => subtraction(4, 4),
+  "subtraction-four-digit-five-digit": () => subtraction(4, 5),
+  "subtraction-four-digit-six-digit": () => subtraction(4, 6),
+
+  "multiplication-by-2-3-4-5-10": () => {
+    const a = randomInteger(1, 10);
+    const b = [2, 3, 4, 5, 10][randomInteger(0, 4)];
+
+    return {
+      data: { a, b },
+      answer: a * b,
+    };
+  },
+  "multiplication-by-6-7-8-9": () => {
+    const a = randomInteger(1, 10);
+    const b = randomInteger(6, 9);
+
+    return {
+      data: { a, b },
+      answer: a * b,
+    };
+  },
+  "multiplication-product-up-to-1-million": () => {
+    const a = randomInteger(1, 1000);
+    const b = randomInteger(1, Math.floor(1_000_000 / a));
+
+    return {
+      data: { a, b },
+      answer: a * b,
+    };
+  },
+
+  "division-by-2-3-4-5-10": () => {
+    const divisor = [2, 3, 4, 5, 10][randomInteger(0, 4)];
+    const quotient = randomInteger(1, 10);
+
+    return {
+      data: {
+        a: divisor * quotient,
+        b: divisor,
+      },
+      answer: quotient,
+    };
+  },
+  "division-by-6-7-8-9": () => {
+    const divisor = randomInteger(6, 9);
+    const quotient = randomInteger(1, 10);
+
+    return {
+      data: {
+        a: divisor * quotient,
+        b: divisor,
+      },
+      answer: quotient,
+    };
+  },
+  "division-2digit-by-1digit-remainder": () => {
+    const b = randomInteger(2, 9);
+    const a = randomInteger(10, 99);
+    const remainder = a % b;
+
+    return {
+      data: { a, b },
+      answer: remainder,
+    };
+  },
+  "division-3digit-by-1digit": () => {
+    const b = randomInteger(2, 9);
+    const min = Math.ceil(100 / b);
+    const max = Math.floor(999 / b);
+    const quotient = randomInteger(min, max);
+
+    return {
+      data: {
+        a: b * quotient,
+        b,
+      },
+      answer: quotient,
+    };
+  },
+  "division-4digit-by-2digit": () => {
+    const b = randomInteger(11, 19);
+    const quotient = randomInteger(Math.ceil(1000 / b), Math.floor(9999 / b));
+
+    return {
+      data: {
+        a: b * quotient,
+        b,
+      },
+      answer: quotient,
+    };
+  },
 
   "count-10-random-dots": () => generateRandomDots(1, 10),
   "count-20-random-dots": () => generateRandomDots(11, 20),
@@ -218,5 +312,19 @@ const addition = (digitsA, digitsB) => {
   return {
     data: { a, b },
     answer: a + b,
+  };
+};
+
+const subtraction = (digitsA, digitsB) => {
+  const min = (digits) => 10 ** (digits - 1);
+  const max = (digits) => 10 ** digits - 1;
+
+  const n1 = randomInteger(min(digitsA), max(digitsA));
+  const n2 = randomInteger(min(digitsB), max(digitsB));
+  const [a, b] = n1 >= n2 ? [n1, n2] : [n2, n1];
+
+  return {
+    data: { a, b },
+    answer: a - b,
   };
 };
