@@ -69,23 +69,29 @@ const generators = {
     };
   },
   "alphabet-alternating-direction": () => {
-    const step = randomInteger(1, 3);
-    const start = randomInteger(step, 25 - step);
+    const forward = randomInteger(2, 4);
+    const backward = randomInteger(1, forward - 1);
 
-    const sequence = [start];
+    let sequence;
 
-    for (let i = 0; i < 4; i++) {
-      sequence.push(sequence.at(-1) + (i % 2 === 0 ? step : -step));
-    }
+    do {
+      const start = randomInteger(0, 25);
+      sequence = [start];
+
+      for (let i = 0; i < 5; i++) {
+        sequence.push(sequence.at(-1) + (i % 2 === 0 ? forward : -backward));
+      }
+    } while (sequence.some((n) => n < 0 || n > 25));
 
     return {
       data: {
         sequence: sequence
+          .slice(0, 5)
           .map((n) => String.fromCharCode(97 + n))
           .concat("_")
           .join(" "),
       },
-      answer: String.fromCharCode(97 + sequence.at(-1) + step),
+      answer: String.fromCharCode(97 + sequence[5]),
     };
   },
   "alphabet-alternating-step": () => {
