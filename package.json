@@ -2,5 +2,10 @@
   "name": "mathforge",
   "version": "0.1.0",
   "main": "src/index.js",
-  "type": "module"
+  "type": "module",
+  "types": "src/index.d.ts",
+  "files": [
+    "src/index.js",
+    "src/index.d.ts"
+  ]
 }
