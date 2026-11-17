@@ -1,11 +1,16 @@
 {
   "name": "mathforge",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
-  "types": "src/index.d.ts",
-  "files": [
-    "src/index.js",
-    "src/index.d.ts"
-  ]
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
 }
